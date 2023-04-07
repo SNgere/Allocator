@@ -12,7 +12,7 @@ df2['Date'] = pd.to_datetime(df2['Date'])
 df2.set_index('Date', inplace=True)
 
 # Filter the dataframe to only show Monday to Friday
-df2_weekdays = df2.loc[df2.index.weekday < 5]
+#df2_weekdays = df2.loc[df2.index.weekday < 5]
 
 # Define a function to color code consecutive rows forming two weeks differently
 def highlight_2weeks(row):
