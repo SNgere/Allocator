@@ -100,7 +100,10 @@ df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.cs
 
 # Define a function to search for a keyword within the DataFrame columns
 def search_columns(keyword):
-    cols_with_keyword = [col for col in df.columns if str(keyword) in str(df[col].iloc[0])]
+    cols_with_keyword = []
+    for col in df.columns:
+        if col.lower() != 'date' and any(str(keyword).lower() in str(cell).lower() for cell in df[col]):
+            cols_with_keyword.append(col)
     if len(cols_with_keyword) == 0:
         st.write("No columns found containing the keyword:", keyword)
     else:
