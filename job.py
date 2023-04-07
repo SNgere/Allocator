@@ -14,12 +14,27 @@ df2.set_index('Date', inplace=True)
 # Filter the dataframe to only show Monday to Friday
 df2_weekdays = df2.loc[df2.index.weekday < 5]
 
-# Define a function to format the date as "Monday, DD/MM/YYYY"
-def format_date(date):
-    return date.strftime('%A, %d/%m/%Y')
+# Create a multi-level header for the table
+week_nums = df2_weekdays.index.week
+weekday_names = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+header = pd.MultiIndex.from_product([np.unique(week_nums), weekday_names], names=['Week', 'Day'])
 
-# Apply the date format to the index column
-df2_weekdays.index = df2_weekdays.index.map(format_date)
+# Reshape the dataframe to match the header
+df2_weekdays_reshaped = df2_weekdays.pivot(columns=df2_weekdays.index.weekday, values='Value')
 
-# Display the dataframe in Streamlit
-st.write(df2_weekdays)
+# Rename the columns to match the weekday names
+df2_weekdays_reshaped.columns = weekday_names
+
+# Add the week number as a new column
+df2_weekdays_reshaped['Week'] = week_nums
+
+# Set the index as the week number and reset the dataframe index
+df2_weekdays_reshaped.set_index('Week', inplace=True)
+df2_weekdays_reshaped.index.name = 'Week'
+df2_weekdays_reshaped.reset_index(inplace=True)
+
+# Set the multi-level header for the table
+df2_weekdays_reshaped.columns = header
+
+# Display the nested table in Streamlit
+st.write(df2_weekdays_reshaped)
