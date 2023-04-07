@@ -16,10 +16,14 @@ df2_weekdays = df2.loc[df2.index.weekday < 5]
 
 # Define a function to color code rows forming one week differently
 def highlight_week(row):
-    if row.name.week % 2 == 0:
-        return ['background-color: #c2e6c9']*len(row)
+    week_num = row.name.week
+    week_odd = week_num % 2 == 1
+    if (week_num == 15 or week_num == 16) and row.name.day < 14:
+        return ['background-color: #e0e0e0']*len(row)  # Change color for April 10-14, 2023
+    elif week_odd:
+        return ['background-color: #f0f4c3']*len(row)  # Light yellow for odd weeks
     else:
-        return ['background-color: #f0f4c3']*len(row)
+        return ['background-color: #c2e6c9']*len(row)  # Light green for even weeks
 
 # Apply the function to the dataframe
 df2_weekdays_styled = df2_weekdays.style.apply(highlight_week, axis=1)
