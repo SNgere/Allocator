@@ -91,7 +91,6 @@ df2_weekdays.index = df2_weekdays.index.map(format_date)
 st.write(df2_weekdays)
 
 #################################################################################################################################################################
-
 import streamlit as st
 import pandas as pd
 
@@ -113,10 +112,34 @@ def search_columns(keyword):
 
 # Define the Streamlit app
 def app():
-    st.title("Search Columns")
-    keyword = st.text_input("Enter a keyword to search for within columns:")
-    if st.button("Search"):
-        search_columns(keyword)
+    # Set page title
+    st.set_page_config(
+        page_title="Search Columns",
+        page_icon=":mag:",
+        layout="wide",
+        initial_sidebar_state="collapsed"
+    )
 
-if __name__ == '__main__':
-    app()
+    # Define page background color and font
+    page_bg_color = "#F8F8FF"
+    font = "sans-serif"
+
+    # Define header styles
+    header_bg_color = "#222831"
+    header_text_color = "#F8F8FF"
+    header_font_size = "30px"
+    header_font_weight = "bold"
+    header_padding = "1rem"
+
+    # Define subheader styles
+    subheader_bg_color = "#393e46"
+    subheader_text_color = "#F8F8FF"
+    subheader_font_size = "20px"
+    subheader_font_weight = "bold"
+    subheader_padding = "0.5rem"
+
+    # Set page header
+    st.markdown(
+        f"""
+        <style>
+            .reportview
