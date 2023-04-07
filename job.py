@@ -28,7 +28,7 @@ end_date = pd.to_datetime('2023-04-14')
 filtered_work = weekly_work.loc[start_date:end_date]
 
 # Define the color map for each name
-cmap = {'Daemon': 'Blues', 'Emma': 'lightgreen', 'Freya': 'lightpink', 'Georgie': 'lavender', 'Jimmy': 'lightyellow','Jones': 'lightyellow'}
+cmap = {'Daemon': 'Blues', 'Emma': 'Oranges', 'Freya': 'PuRd_r', 'Georgie': 'gist_earth_r', 'Jimmy': 'ocean_r','Jones': 'coolwarm_r'}
 
 # Apply background gradient to each name based on its color map
 styled_table = filtered_work.style.background_gradient(subset=pd.IndexSlice[:, 'Daemon'], cmap=cmap['Daemon']).\
