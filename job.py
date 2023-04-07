@@ -112,69 +112,11 @@ def search_columns(keyword):
 
 # Define the Streamlit app
 def app():
-    # Set page title
-    st.set_page_config(
-        page_title="Search Columns",
-        page_icon=":mag:",
-        layout="wide",
-        initial_sidebar_state="collapsed"
-    )
-
-    # Define page background color and font
-    page_bg_color = "#F8F8FF"
-    font = "sans-serif"
-
-    # Define header styles
-    header_bg_color = "#222831"
-    header_text_color = "#F8F8FF"
-    header_font_size = "30px"
-    header_font_weight = "bold"
-    header_padding = "1rem"
-
-    # Define subheader styles
-    subheader_bg_color = "#393e46"
-    subheader_text_color = "#F8F8FF"
-    subheader_font_size = "20px"
-    subheader_font_weight = "bold"
-    subheader_padding = "0.5rem"
-
-    # Set page header
-    st.markdown(
-        f"""
-        <style>
-            .reportview-container {{
-                background-color: {page_bg_color};
-                font-family: {font};
-            }}
-            .css-hby737 {{
-                padding: 0;
-            }}
-            .main-header {{
-                background-color: {header_bg_color};
-                color: {header_text_color};
-                font-size: {header_font_size};
-                font-weight: {header_font_weight};
-                padding: {header_padding};
-                margin-bottom: 1rem;
-            }}
-            .main-subheader {{
-                background-color: {subheader_bg_color};
-                color: {subheader_text_color};
-                font-size: {subheader_font_size};
-                font-weight: {subheader_font_weight};
-                padding: {subheader_padding};
-            }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Define app content
     st.title("Search Columns")
-    st.markdown("Enter a keyword to search for within columns:")
-    keyword = st.text_input("")
+    keyword = st.text_input("Enter a keyword to search for within columns:")
     if st.button("Search"):
         search_columns(keyword)
 
 if __name__ == '__main__':
     app()
+
