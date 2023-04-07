@@ -24,5 +24,8 @@ def highlight_week(row):
 # Apply the function to the dataframe
 df2_weekdays_styled = df2_weekdays.style.apply(highlight_week, axis=1)
 
+# Set the date format to YYYY-MM-DD
+df2_weekdays_styled.format({'Date': '{:%Y-%m-%d}'})
+
 # Display the styled dataframe in Streamlit
 st.write(df2_weekdays_styled)
