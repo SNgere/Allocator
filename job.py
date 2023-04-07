@@ -113,14 +113,10 @@ def search_columns(keyword):
 
 # Define the Streamlit app
 def app():
-    st.markdown("<h1 style='text-align: center; font-size: 30px;'>Search Columns</h1>", unsafe_allow_html=True)
+    st.subheader("Search Columns")
     keyword = st.text_input("Enter a keyword to search for within columns:")
     if st.button("Search"):
         search_columns(keyword)
-
-if __name__ == '__main__':
-    app()
-
 
 if __name__ == '__main__':
     app()
