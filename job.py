@@ -96,7 +96,7 @@ import pandas as pd
 import streamlit as st
 
 # Load the data from CSV file
-df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
 # Convert all columns to string except for 'Date'
 df = df.applymap(str)  # this will convert all columns to string
