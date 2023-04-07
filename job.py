@@ -93,13 +93,13 @@ st.write(df2_weekdays)
 #################################################################################################################################################################
 
 # Get the list of column names
-col_names = list(df.columns)
+col_names = list(df2.columns)
 
 # Create a search bar for the user to enter the search text
 search_text = st.sidebar.text_input("Enter search text:")
 
 # Filter the dataframe based on the search text
-filtered_df = df.apply(lambda x: x.astype(str).str.contains(search_text, case=False)).any(axis=1)
+filtered_df2 = df2.apply(lambda x: x.astype(str).str.contains(search_text, case=False)).any(axis=1)
 
 # Display the name of the columns containing the search text
 st.write("Columns containing search text:")
@@ -109,6 +109,6 @@ for col in col_names:
 
 # Display the filtered dataframe
 st.write("Filtered dataframe:")
-st.write(df[filtered_df])
+st.write(df[filtered_df2])
 
 
