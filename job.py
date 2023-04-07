@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file into a pandas DataFrame
-df = pd.read_csv('https://github.com/SNgere/Allocator/blob/98cd4f9335bf27a81973639c2026d19c2bd32054/cell_counts.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
 
 # Create a pie chart
 fig, ax = plt.subplots()
