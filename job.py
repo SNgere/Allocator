@@ -2,6 +2,74 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+# Set page title
+st.set_page_config(
+    page_title="Weekly Work Allocation",
+    page_icon=":memo:",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+# Define page background color and font
+page_bg_color = "#F8F8FF"
+font = "sans-serif"
+
+# Define header styles
+header_bg_color = "#222831"
+header_text_color = "#F8F8FF"
+header_font_size = "36px"
+header_font_weight = "bold"
+header_padding = "1rem"
+
+# Define subheader styles
+subheader_bg_color = "#393e46"
+subheader_text_color = "#F8F8FF"
+subheader_font_size = "24px"
+subheader_font_weight = "bold"
+subheader_padding = "0.5rem"
+
+# Set page header
+st.markdown(
+    f"""
+    <style>
+        .reportview-container {{
+            background-color: {page_bg_color};
+            font-family: {font};
+        }}
+        .css-hby737 {{
+            padding: 0;
+        }}
+        .main-header {{
+            background-color: {header_bg_color};
+            color: {header_text_color};
+            font-size: {header_font_size};
+            font-weight: {header_font_weight};
+            padding: {header_padding};
+            margin-bottom: 1rem;
+        }}
+        .main-subheader {{
+            background-color: {subheader_bg_color};
+            color: {subheader_text_color};
+            font-size: {subheader_font_size};
+            font-weight: {subheader_font_weight};
+            padding: {subheader_padding};
+        }}
+    </style>
+    
+    <div class="main-header">
+        <div class="css-hby737"> </div>
+        <span>Weekly Work Allocation</span>
+    </div>
+    
+    <div class="main-subheader">
+        <span>Batches allocated weekly.</span>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
 # Load the dataframe from CSV file
 df2 = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
 
