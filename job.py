@@ -104,7 +104,7 @@ filtered_df2 = df2.apply(lambda x: x.astype(str).str.contains(search_text, case=
 # Display the name of the columns containing the search text
 st.write("Columns containing search text:")
 for col in col_names:
-    if filtered_df[col]:
+    if filtered_df2[col]:
         st.write("- " + col)
 
 # Display the filtered dataframe
