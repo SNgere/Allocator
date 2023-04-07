@@ -22,13 +22,15 @@ def format_date(date):
 df2_weekdays.index = df2_weekdays.index.map(format_date)
 
 # Add a horizontal line after every Friday
-def add_weekly_separator(index, column):
-    if index.weekday() == 4:
-        return 'border-bottom: 2px solid #ccc'
+def add_horizontal_line(row):
+    line = 'border-bottom: 1px solid black'
+    if row.name.endswith('Friday'):
+        return [line]*len(row)
     else:
-        return ''
+        return ['']*len(row)
 
-df2_weekdays_styled = df2_weekdays.style.applymap(add_weekly_separator)
+# Apply the horizontal line to the dataframe
+df2_weekdays_styled = df2_weekdays.style.apply(add_horizontal_line, axis=1)
 
 # Display the styled dataframe in Streamlit
 st.write(df2_weekdays_styled)
