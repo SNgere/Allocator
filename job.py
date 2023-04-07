@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the data
-df = pd.read_csv("https://github.com/SNgere/Allocator/blob/ae2a35c1e76639b22d02c62f734c79c35f76f86d/job.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
 # Convert the "Date" column to datetime format
 df['Date'] = pd.to_datetime(df['Date'])
