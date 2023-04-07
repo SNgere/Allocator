@@ -68,8 +68,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
-
 # Load the dataframe from CSV file
 df2 = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
 
@@ -91,3 +89,26 @@ df2_weekdays.index = df2_weekdays.index.map(format_date)
 
 # Display the dataframe in Streamlit
 st.write(df2_weekdays)
+
+#################################################################################################################################################################
+
+# Define a function to search for text in the dataframe and return the column name(s) containing the text
+def search_dataframe(df, search_text):
+    columns_with_text = []
+    for column in df.columns:
+        if df[column].str.contains(search_text).any():
+            columns_with_text.append(column)
+    return columns_with_text
+
+# Get user input for search text
+search_text = st.text_input('Enter search text:')
+
+# Apply the search function to the dataframe
+if search_text:
+    columns_with_text = search_dataframe(df, search_text)
+    if columns_with_text:
+        st.write(f"The search text '{search_text}' is present in the following columns: {', '.join(columns_with_text)}")
+    else:
+        st.write(f"The search text '{search_text}' is not present in any column.")
+
+
