@@ -1,13 +1,15 @@
+import streamlit as st
 import pandas as pd
 import openpyxl
-import streamlit as st
+from openpyxl.styles import PatternFill
 import plotly.graph_objects as go
 
 # Read Excel file into a pandas DataFrame
-df = pd.read_excel('https://github.com/SNgere/Allocator/blob/f1e408d2a5328114bcaabc759c995cc4c6d95562/verified.xlsx',engine='openpyxl')
+url = 'https://github.com/SNgere/Allocator/raw/f1e408d2a5328114bcaabc759c995cc4c6d95562/verified.xlsx'
+df = pd.read_excel(url, engine='openpyxl')
 
 # Load the workbook using openpyxl
-wb = openpyxl.load_workbook('https://github.com/SNgere/Allocator/blob/f1e408d2a5328114bcaabc759c995cc4c6d95562/verified.xlsx',engine='openpyxl')
+wb = openpyxl.load_workbook(url)
 
 # Get the active worksheet
 ws = wb.active
@@ -23,7 +25,7 @@ date_col_idx = df.columns.get_loc('Date')
 for row in ws.iter_rows():
     for cell in row:
         # Check if cell has a red fill color
-        if cell.fill.start_color.index == 'FFFF0000':
+        if isinstance(cell.fill, PatternFill) and cell.fill.start_color.index == 'FFFF0000':
             # Check if cell value is not NaN and cell is not in the 'Date' column
             if not pd.isna(cell.value) and cell.column != date_col_idx + 1:
                 red_count += 1
@@ -32,10 +34,15 @@ for row in ws.iter_rows():
             if not pd.isna(cell.value) and cell.column != date_col_idx + 1:
                 not_red_count += 1 
 
-# Show pie chart of cell counts
-fig = go.Figure(data=[go.Pie(labels=['Red Fill Color', 'No Fill Color'], values=[red_count, not_red_count])])
-fig.update_layout(title='Counts of Cells with Red Fill Color vs Cells without Fill Color')
+# Create a pie chart showing the counts of cells with and without red fill color
+fig = go.Figure(data=[go.Pie(labels=['Red', 'Not Red'], values=[red_count, not_red_count], hole=.3)])
+
+# Set the title of the pie chart
+fig.update_layout(title='Counts of Cells with and Without Red Fill Color')
+
+# Display the pie chart using Streamlit
 st.plotly_chart(fig)
+
 
 #############################################################################################################################################################
 
