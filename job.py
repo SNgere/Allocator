@@ -106,4 +106,3 @@ filtered_df = df[df.apply(lambda x: x.astype(str) == search_term, axis=1)]
 
 # Display the filtered DataFrame
 st.write(filtered_df)
-
