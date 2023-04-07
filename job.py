@@ -96,21 +96,34 @@ import streamlit as st
 import pandas as pd
 
 # Load the dataframe from CSV file
-df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
+df2 = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
 
-# Create a text input field for the search string
-search_str = st.text_input('Search for numbers')
+# Define function to search for text in dataframe columns
+def search_number(df, num):
+    cols = []
+    for col in df.columns:
+        if df[col].dtype in [int, float] and num in df[col].values:
+            cols.append(col)
+    return cols
 
-# Search for the string in the dataframe
-cols_with_text = [col for col in df.columns if search_str in df[col].astype(str).str.contains(search_str, regex=False)]
+# Set page title
+st.set_page_config(page_title="Search for Number in Dataframe", page_icon=":mag:", layout="wide")
 
-# Display the names of the columns containing the search text
-if cols_with_text:
-    st.write(f"The search string '{search_str}' was found in the following columns:")
-    for col in cols_with_text:
-        st.write(f"- {col}")
+# Set page header
+st.title("Search for Number in Dataframe")
+st.markdown("Enter a number to search for in the dataframe.")
+
+# Get user input for number to search
+num = st.number_input("Number to search for:")
+
+# Search for number in dataframe columns
+cols = search_number(df2, num)
+
+# Display column name(s) containing search text
+if len(cols) == 0:
+    st.write("No columns found containing the number", num)
 else:
-    st.write(f"No columns contain the search string '{search_str}'.")
-
-
+    st.write("The number", num, "was found in the following column(s):")
+    for col in cols:
+        st.write("-", col)
 
