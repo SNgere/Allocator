@@ -14,22 +14,25 @@ df2.set_index('Date', inplace=True)
 # Filter the dataframe to only show Monday to Friday
 df2_weekdays = df2.loc[df2.index.weekday < 5]
 
-# Define a function to color code rows forming one week differently
-def highlight_week(row):
+# Define a function to color code consecutive rows forming two weeks differently
+def highlight_2weeks(row):
     week_num = row.name.week
     week_odd = week_num % 2 == 1
     if (week_num == 15 or week_num == 16) and row.name.day < 14:
         return ['background-color: #e0e0e0']*len(row)  # Change color for April 10-14, 2023
-    elif week_odd:
-        return ['background-color: #f0f4c3']*len(row)  # Light yellow for odd weeks
+    elif (week_num % 4 == 0) and row.name.weekday() < 5:
+        return ['background-color: #c2e6c9']*len(row)  # Light green for first week
+    elif (week_num % 4 == 1 or week_num % 4 == 2) and row.name.weekday() < 5:
+        return ['background-color: #f0f4c3']*len(row)  # Light yellow for second week
     else:
-        return ['background-color: #c2e6c9']*len(row)  # Light green for even weeks
+        return ['background-color: #ffffff']*len(row)  # White for other weeks
 
 # Apply the function to the dataframe
-df2_weekdays_styled = df2_weekdays.style.apply(highlight_week, axis=1)
+df2_weekdays_styled = df2_weekdays.style.apply(highlight_2weeks, axis=1)
 
 # Set the date format to YYYY-MM-DD
 df2_weekdays_styled.format({'Date': '{:%Y-%m-%d}'})
 
 # Display the styled dataframe in Streamlit
 st.write(df2_weekdays_styled)
+
