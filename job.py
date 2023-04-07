@@ -1,29 +1,4 @@
 import streamlit as st
-import requests
-import pandas as pd
-
-# Define the URL of the CSV file on GitHub
-url = "'https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv'"
-
-# Define a function to retrieve the CSV data from GitHub
-@st.cache(allow_output_mutation=True)
-def get_data():
-    r = requests.get(url)
-    return pd.read_csv(io.StringIO(r.text))
-
-# Define the Streamlit app
-def app():
-    # Get the CSV data from GitHub
-    data = get_data()
-    
-    # Add your app code here, using the data variable to access the CSV data
-    
-if __name__ == '__main__':
-    app()
-
-
-##################################################################################################################################################################
-import streamlit as st
 import pandas as pd
 import numpy as np
 
