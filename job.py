@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from streamlit_awesome_icons import *
 
 # Load the dataframe from CSV file
 df2 = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
@@ -21,15 +22,23 @@ def format_date(date):
 # Apply the date format to the index column
 df2_weekdays.index = df2_weekdays.index.map(format_date)
 
-# Define a function to highlight Friday rows
-def highlight_fridays(val):
-    style = ''
-    if 'Friday' in val:
-        style = 'border-top: 1px solid #999999;'
-    return style
+# Add a new column called "Icon"
+df2_weekdays['Icon'] = np.nan
 
-# Apply the style to the styled dataframe
-df2_weekdays_styled = df2_weekdays.style.applymap(highlight_fridays)
+# Define a function to assign an icon to each week
+def assign_icon(row):
+    week_num = row.name.week
+    if week_num % 4 == 1:
+        return IconFamily.SOLID_ARROW_DOWN
+    elif week_num % 4 == 2:
+        return IconFamily.SOLID_ARROW_UP
+    elif week_num % 4 == 3:
+        return IconFamily.SOLID_CIRCLE
+    else:
+        return IconFamily.SOLID_SQUARE
 
-# Display the styled dataframe in Streamlit
-st.write(df2_weekdays_styled)
+# Apply the function to the "Icon" column
+df2_weekdays['Icon'] = df2_weekdays.apply(assign_icon, axis=1)
+
+# Display the dataframe in Streamlit
+st.write(df2_weekdays)
