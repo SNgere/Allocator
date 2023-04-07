@@ -98,22 +98,23 @@ import pandas as pd
 # Load the data from CSV file
 df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
-# Define a function to search for an exact match of a keyword within the DataFrame columns
+# Define a function to search for a keyword within the DataFrame columns
 def search_columns(keyword):
     cols_with_keyword = []
     for col in df.columns:
-        if col != 'Date' and any(keyword.lower() == str(cell).lower() for cell in df[col]):
+        if col.lower() != 'date' and any(str(cell) == str(keyword) for cell in df[col]):
             cols_with_keyword.append(col)
     if len(cols_with_keyword) == 0:
-        st.write("No matches found for keyword:", keyword)
+        st.write("No column contains the keyword:", keyword)
     else:
-        st.write("Search results:")
+        st.write("The following columns contain the keyword:", keyword)
         for col in cols_with_keyword:
             st.write(col)
 
 # Define the Streamlit app
 def app():
-    st.subheader("Search Columns")
+    st.title("Search Columns")
+    st.write(df)
     keyword = st.text_input("Enter a keyword to search for within columns:")
     if st.button("Search"):
         search_columns(keyword)
