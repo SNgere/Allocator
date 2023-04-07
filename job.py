@@ -91,6 +91,7 @@ df2_weekdays.index = df2_weekdays.index.map(format_date)
 st.write(df2_weekdays)
 
 #################################################################################################################################################################
+
 import pandas as pd
 import streamlit as st
 
@@ -111,9 +112,16 @@ except ValueError:
 
 # Filter the DataFrame based on the search term
 if search_num is not None:
-    filtered_df = df[df.apply(lambda x: pd.to_numeric(x, errors='coerce') == search_num, axis=1)]
+    filtered_df = pd.DataFrame(columns=df.columns)
+    for col in df.columns:
+        if df[col].dtype in ['int64', 'float64'] and col != 'date':
+            col_match = df[col] == search_num
+            filtered_rows = df[col_match]
+            filtered_rows.insert(0, 'Column', col)
+            filtered_df = pd.concat([filtered_df, filtered_rows], ignore_index=True)
 else:
     filtered_df = df
 
 # Display the filtered DataFrame
 st.write(filtered_df)
+
