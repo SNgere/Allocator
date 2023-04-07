@@ -35,7 +35,7 @@ styled_table = filtered_work.style.background_gradient(subset=pd.IndexSlice[:, '
               background_gradient(subset=pd.IndexSlice[:, 'Emma'], cmap=cmap['Emma']).\
               background_gradient(subset=pd.IndexSlice[:, 'Freya'], cmap=cmap['Freya']).\
               background_gradient(subset=pd.IndexSlice[:, 'Georgie'], cmap=cmap['Georgie']).\
-              background_gradient(subset=pd.IndexSlice[:, 'Jimmy'], cmap=cmap['Jimmy'])
+              background_gradient(subset=pd.IndexSlice[:, 'Jimmy'], cmap=cmap['Jimmy']).\
               background_gradient(subset=pd.IndexSlice[:, 'Jones'], cmap=cmap['Jones'])
 
 # Display the resulting dataframe with formatting and color map
