@@ -95,23 +95,13 @@ st.write(df2_weekdays)
 # Load the dataframe from CSV file
 df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
 
-# Get the list of column names
-col_names = list(df.columns)
+# Create a text input for the user to search for a number
+search_text = st.text_input('Enter a number to search for:')
 
-# Create a search bar for the user to enter the search text
-search_text = st.sidebar.text_input("Enter search text:")
-
-# Filter the dataframe based on the search text
-filtered_df = df.apply(lambda x: x.astype(str).str.contains(search_text, case=False)).any(axis=1)
-
-# Display the name of the columns containing the search text
-st.write("Columns containing search text:")
-for col in col_names:
-    if filtered_df[col]:
-        st.write("- " + col)
-
-# Display the filtered dataframe
-st.write("Filtered dataframe:")
-st.write(df[filtered_df])
+# Iterate over the columns in the dataframe
+for column in df.columns:
+    # Check if the search text is in the column
+    if search_text in df[column].values.astype(str):
+        st.write(f"Found '{search_text}' in column '{column}'.")
 
 
