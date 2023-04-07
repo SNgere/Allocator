@@ -4,7 +4,7 @@ import numpy as np
 
 # Set page title
 st.set_page_config(
-    page_title="Weekly Work Allocation",
+    page_title="Weekly Batch Allocation",
     page_icon=":memo:",
     layout="wide",
     initial_sidebar_state="collapsed"
