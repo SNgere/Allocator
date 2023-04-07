@@ -96,28 +96,32 @@ import streamlit as st
 import pandas as pd
 
 # Load the data from CSV file
-df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
-
-# Define a function to search for an exact match to the keyword within the DataFrame columns
-def search_columns(keyword):
-    cols_with_keyword = []
-    for col in df.columns:
-        if col.lower() != 'date' and any(str(cell).strip().lower() == str(keyword).strip().lower() for cell in df[col]):
-            cols_with_keyword.append(col)
-    if len(cols_with_keyword) == 0:
-        st.write("No exact matches found for keyword:", keyword)
-    else:
-        st.write("The batch was allocated to:", keyword)
-        for col in cols_with_keyword:
-            st.write(col)
+df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
 
 # Define the Streamlit app
 def app():
     st.subheader("Search")
-    keyword = st.text_input("", "")
+    
+    # Create a text input widget for the search keyword
+    keyword = st.text_input("Enter a keyword to search for:")
+    
+    # Create a search button
     if st.button("Search"):
-        search_columns(keyword)
+        
+        # Execute the search
+        results = []
+        for col in df.columns:
+            for val in df[col]:
+                if str(keyword) in str(val):
+                    results.append((col, val))
+        
+        # Display the search results
+        if len(results) == 0:
+            st.write("No matches found for keyword:", keyword)
+        else:
+            st.write("Search results:")
+            for col, val in results:
+                st.write(col, val)
 
 if __name__ == '__main__':
     app()
-
