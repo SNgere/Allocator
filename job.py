@@ -21,5 +21,41 @@ def format_date(date):
 # Apply the date format to the index column
 df2_weekdays.index = df2_weekdays.index.map(format_date)
 
-# Display the dataframe in Streamlit
-st.write(df2_weekdays)
+# Set page title and favicon
+st.set_page_config(page_title="Weekly Work Allocation", page_icon=":memo:", layout="wide")
+
+# Set page header
+st.title("Weekly Work Allocation")
+st.markdown("Batches allocated weekly.")
+
+# Set page background color
+st.markdown(
+    f"""
+    <style>
+    .reportview-container {{
+        background: #f5f5f5;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Set table styles
+styles = [
+    dict(selector="th", props=[("font-size", "16pt"), ("text-align", "center"), ("border", "1px solid #ccc"), ("padding", "8px")]),
+    dict(selector="td", props=[("font-size", "14pt"), ("text-align", "center"), ("border", "1px solid #ccc"), ("padding", "8px")]),
+    dict(selector="caption", props=[("caption-side", "top"), ("font-size", "20pt"), ("padding-top", "16px"), ("margin-bottom", "32px")]),
+]
+
+# Define a function to highlight Fridays in maroon color
+def highlight_fridays(row):
+    if row.name.weekday() == 4:
+        return ['background-color: #800000']*len(row)
+    else:
+        return ['']*len(row)
+
+# Apply the highlight function to the dataframe
+df2_weekdays_styled = df2_weekdays.style.apply(highlight_fridays, axis=1).set_table_styles(styles)
+
+# Display the styled dataframe in Streamlit
+st.write(df2_weekdays_styled)
