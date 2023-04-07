@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 
 # Load the dataframe from CSV file
 df2 = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
@@ -10,9 +9,6 @@ df2['Date'] = pd.to_datetime(df2['Date'])
 
 # Set 'Date' column as the index
 df2.set_index('Date', inplace=True)
-
-# Filter the dataframe to only show Monday to Friday
-#df2_weekdays = df2.loc[df2.index.weekday < 5]
 
 # Define a function to color code consecutive rows forming two weeks differently
 def highlight_2weeks(row):
@@ -25,7 +21,10 @@ def highlight_2weeks(row):
     elif (week_num % 4 == 1 or week_num % 4 == 2) and row.name.weekday() < 5:
         return ['background-color: #C04000']*len(row)  # Light yellow for second week
     else:
-        return ['background-color: #722f37']*len(row)  # White for other weeks
+        return ['background-color: #A52A2A']*len(row)  # Dark red for other weeks
+
+# Filter the dataframe to only show Monday to Friday
+df2_weekdays = df2.loc[df2.index.weekday < 5]
 
 # Apply the function to the dataframe
 df2_weekdays_styled = df2_weekdays.style.apply(highlight_2weeks, axis=1)
@@ -35,4 +34,3 @@ df2_weekdays_styled.format({'Date': '{:%Y-%m-%d}'})
 
 # Display the styled dataframe in Streamlit
 st.write(df2_weekdays_styled)
-
