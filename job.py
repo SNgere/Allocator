@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # Load the dataframe from CSV file
-df2 = pd.read_csv('path/to/your/csv')
+df2 = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
 # Convert 'Date' column to datetime format
 df2['Date'] = pd.to_datetime(df2['Date'])
