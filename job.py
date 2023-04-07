@@ -102,7 +102,7 @@ df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.cs
 search_term = st.text_input("Search")
 
 # Filter the DataFrame based on the search term
-filtered_df = df[df.apply(lambda x: x.astype(str) == search_term, axis=1)]
+filtered_df = df[df.apply(lambda x: x.astype(str).str.contains(search_term, case=False).any(), axis=1)]
 
 # Display the filtered DataFrame
 st.write(filtered_df)
