@@ -27,6 +27,5 @@ end_date = pd.to_datetime('2023-04-14')
 # Filter the data by date range
 filtered_work = weekly_work.loc[start_date:end_date]
 
-# Display the resulting dataframe with formatting and color map
-st.write(styled_table.set_caption("Work allocation from April 10th to April 14th").\
-          format("{:.0f}").set_properties(**{'text-align': 'center'}))
+# Display the resulting dataframe with formatting
+st.write(filtered_work.style.set_caption("Work allocation from April 10th to April 14th").format("{:.0f}").set_properties(**{'text-align': 'center'}))
