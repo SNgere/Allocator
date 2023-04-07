@@ -6,8 +6,19 @@ import plotly.graph_objects as go
 
 import pandas as pd
 
+import pandas as pd
+import streamlit as st
+
 url = 'https://github.com/SNgere/Allocator/raw/f1e408d2a5328114bcaabc759c995cc4c6d95562/verified.xlsx'
-df = pd.read_excel(url, engine='openpyxl')
+
+@st.cache
+def load_data(url):
+    df = pd.read_excel(url, engine='openpyxl')
+    return df
+
+df = load_data(url)
+st.write(df)
+
 
 
 # Load the workbook using openpyxl
