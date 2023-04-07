@@ -98,16 +98,16 @@ import pandas as pd
 # Load the data from CSV file
 df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
-# Define a function to search for a keyword within the DataFrame columns
+# Define a function to search for an exact match of a keyword within the DataFrame columns
 def search_columns(keyword):
     cols_with_keyword = []
     for col in df.columns:
-        if col.lower() != 'date' and any(str(keyword).lower() in str(cell).lower() for cell in df[col]):
+        if col != 'Date' and any(keyword.lower() == str(cell).lower() for cell in df[col]):
             cols_with_keyword.append(col)
     if len(cols_with_keyword) == 0:
-        st.write("No columns found containing the keyword:", keyword)
+        st.write("No matches found for keyword:", keyword)
     else:
-        st.write("Columns containing the keyword:", keyword)
+        st.write("Search results:")
         for col in cols_with_keyword:
             st.write(col)
 
@@ -120,4 +120,3 @@ def app():
 
 if __name__ == '__main__':
     app()
-
