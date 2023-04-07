@@ -91,7 +91,6 @@ df2_weekdays.index = df2_weekdays.index.map(format_date)
 st.write(df2_weekdays)
 
 #################################################################################################################################################################
-
 import pandas as pd
 import streamlit as st
 
@@ -100,13 +99,18 @@ df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.cs
 
 # Define the search function
 def search_columns(input_str):
+    # Create an empty list to hold matching columns
+    matching_cols = []
     # Iterate over the columns of the DataFrame
     for col in df.columns:
-        # If the input string matches the column name, return the column
-        if input_str.lower() == col.lower():
-            return df[col]
-    # If no matching column was found, return an error message
-    return "No matching column found."
+        # If the input string is a substring of the column name, add the column to the list
+        if input_str.lower() in col.lower():
+            matching_cols.append(col)
+    # If no matching columns were found, return an error message
+    if not matching_cols:
+        return "No matching columns found."
+    # Otherwise, return the matching columns
+    return matching_cols
 
 # Define the Streamlit app
 def app():
@@ -119,11 +123,12 @@ def app():
     # Add a text input field for the user to enter their search string
     search_str = st.text_input("Enter a column name:")
 
-    # If the user has entered a search string, search for the column and display the results
+    # If the user has entered a search string, search for the matching columns and display the results
     if search_str:
-        result = search_columns(search_str)
-        st.write(result)
+        matching_cols = search_columns(search_str)
+        st.write("Matching columns:")
+        for col in matching_cols:
+            st.write(col)
 
 if __name__ == '__main__':
     app()
-
