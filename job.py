@@ -16,16 +16,20 @@ df2_weekdays = df2.loc[df2.index.weekday < 5]
 
 # Define a function to format the date as "Monday, DD/MM/YYYY"
 def format_date(date):
-    if date.weekday() == 4:
-        return [date.strftime('%A, %d/%m/%Y'), '---']  # Add a row with a horizontal line after Fridays
-    else:
-        return [date.strftime('%A, %d/%m/%Y'), '']  # Add an empty row after other weekdays
+    return date.strftime('%A, %d/%m/%Y')
 
 # Apply the date format to the index column
-df2_weekdays_formatted = pd.DataFrame(df2_weekdays.index.map(format_date).tolist(), columns=['Date', ''])
+df2_weekdays.index = df2_weekdays.index.map(format_date)
 
-# Join the formatted date column with the original dataframe
-df2_weekdays_joined = pd.concat([df2_weekdays_formatted, df2_weekdays], axis=1)
+# Define a function to highlight Friday rows
+def highlight_fridays(val):
+    style = ''
+    if 'Friday' in val:
+        style = 'border-top: 1px solid #999999;'
+    return style
 
-# Display the dataframe in Streamlit
-st.write(df2_weekdays_joined)
+# Apply the style to the styled dataframe
+df2_weekdays_styled = df2_weekdays.style.applymap(highlight_fridays)
+
+# Display the styled dataframe in Streamlit
+st.write(df2_weekdays_styled)
