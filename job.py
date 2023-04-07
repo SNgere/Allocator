@@ -19,7 +19,7 @@ def highlight_week(row):
     if row.name.week % 2 == 0:
         return ['background-color: #000000']*len(row)
     else:
-        return ['background-color: #800000']*len(row)
+        return ['background-color: #8B4513']*len(row)
 
 # Apply the function to the dataframe
 df2_weekdays_styled = df2_weekdays.style.apply(highlight_week, axis=1)
