@@ -116,7 +116,7 @@ if search_num is not None:
     for col in df.columns:
         if df[col].dtype in ['int64', 'float64'] and col != 'date':
             if search_num in df[col].values:
-                st.write(f"{search_num} was found in column '{col}'.")
+                st.write(f"{search_num} was assigned to '{col}'.")
                 match_found = True
     if not match_found:
         st.write(f"No match found for {search_num}.")
