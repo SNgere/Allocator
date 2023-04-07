@@ -1,3 +1,6 @@
+import streamlit as st
+import pandas as pd
+
 # Load the dataframe from CSV file
 df2 = pd.read_csv('"https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv"')
 
