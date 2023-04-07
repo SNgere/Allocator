@@ -4,10 +4,10 @@ import streamlit as st
 import plotly.graph_objects as go
 
 # Read Excel file into a pandas DataFrame
-df = pd.read_excel('https://github.com/SNgere/Allocator/blob/f1e408d2a5328114bcaabc759c995cc4c6d95562/verified.xlsx')
+df = pd.read_excel('https://github.com/SNgere/Allocator/blob/f1e408d2a5328114bcaabc759c995cc4c6d95562/verified.xlsx',engine='openpyxl')
 
 # Load the workbook using openpyxl
-wb = openpyxl.load_workbook('https://github.com/SNgere/Allocator/blob/f1e408d2a5328114bcaabc759c995cc4c6d95562/verified.xlsx')
+wb = openpyxl.load_workbook('https://github.com/SNgere/Allocator/blob/f1e408d2a5328114bcaabc759c995cc4c6d95562/verified.xlsx',engine='openpyxl')
 
 # Get the active worksheet
 ws = wb.active
