@@ -1,3 +1,44 @@
+import pandas as pd
+import openpyxl
+import streamlit as st
+import plotly.graph_objects as go
+
+# Read Excel file into a pandas DataFrame
+df = pd.read_excel('verified.xlsx')
+
+# Load the workbook using openpyxl
+wb = openpyxl.load_workbook('verified.xlsx')
+
+# Get the active worksheet
+ws = wb.active
+
+# Initialize variables
+red_count = 0
+not_red_count = 0
+
+# Get the column index of the 'Date' column in the Date frame
+date_col_idx = df.columns.get_loc('Date')
+
+# Iterate over each cell in the worksheet
+for row in ws.iter_rows():
+    for cell in row:
+        # Check if cell has a red fill color
+        if cell.fill.start_color.index == 'FFFF0000':
+            # Check if cell value is not NaN and cell is not in the 'Date' column
+            if not pd.isna(cell.value) and cell.column != date_col_idx + 1:
+                red_count += 1
+        else:
+            # Check if cell value is not NaN and cell is not in the 'Date' column
+            if not pd.isna(cell.value) and cell.column != date_col_idx + 1:
+                not_red_count += 1 
+
+# Show pie chart of cell counts
+fig = go.Figure(data=[go.Pie(labels=['Red Fill Color', 'No Fill Color'], values=[red_count, not_red_count])])
+fig.update_layout(title='Counts of Cells with Red Fill Color vs Cells without Fill Color')
+st.plotly_chart(fig)
+
+#############################################################################################################################################################
+
 import streamlit as st
 import pandas as pd
 import numpy as np
