@@ -110,18 +110,17 @@ except ValueError:
     except ValueError:
         search_num = None
 
-# Filter the DataFrame based on the search term
+# Check if the search term matches any column
 if search_num is not None:
-    filtered_df = pd.DataFrame(columns=df.columns)
+    match_found = False
     for col in df.columns:
         if df[col].dtype in ['int64', 'float64'] and col != 'date':
-            col_match = df[col] == search_num
-            filtered_rows = df[col_match]
-            filtered_rows.insert(0, 'Column', col)
-            filtered_df = pd.concat([filtered_df, filtered_rows], ignore_index=True)
+            if search_num in df[col].values:
+                st.write(f"{search_num} was found in column '{col}'.")
+                match_found = True
+    if not match_found:
+        st.write(f"No match found for {search_num}.")
 else:
-    filtered_df = df
+    st.write("Enter a valid number to search.")
 
-# Display the filtered DataFrame
-st.write(filtered_df)
 
