@@ -114,7 +114,7 @@ def search_columns(keyword):
 # Define the Streamlit app
 def app():
     st.subheader("Search")
-    #keyword = st.text_input("Enter a keyword to search for within columns:")
+    keyword = st.text_input("Enter a keyword to search for within columns:")
     if st.button("Search"):
         search_columns(keyword)
 
