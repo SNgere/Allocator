@@ -92,23 +92,31 @@ st.write(df2_weekdays)
 
 #################################################################################################################################################################
 
-import pandas as pd
 import streamlit as st
+import pandas as pd
 
 # Load the data from CSV file
 df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
-# Convert all columns to string except for 'Date'
-df = df.applymap(str)  # this will convert all columns to string
-df['Date'] = pd.to_datetime(df['Date'])  # convert 'Date' column back to datetime format
+# Define a function to search for a keyword within the DataFrame columns
+def search_columns(keyword):
+    cols_with_keyword = [col for col in df.columns if keyword.lower() in col.lower()]
+    if len(cols_with_keyword) == 0:
+        st.write("No columns found containing the keyword:", keyword)
+    else:
+        st.write("Columns containing the keyword:", keyword)
+        for col in cols_with_keyword:
+            st.write(col)
 
-# Get user input for search text
-search_text = st.text_input('Enter search text (numbers only):')
+# Define the Streamlit app
+def app():
+    st.title("Search Columns")
+    keyword = st.text_input("Enter a keyword to search for within columns:")
+    if st.button("Search"):
+        search_columns(keyword)
 
-# Find the column containing the search text
-numeric_cols = df.select_dtypes(include=['number']).columns
-for col in numeric_cols:
-    if search_text in df[col].values:
-        st.write(f"The search text '{search_text}' is in column '{col}'")
+if __name__ == '__main__':
+    app()
+
 
 
