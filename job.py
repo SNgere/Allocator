@@ -7,7 +7,7 @@ df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_c
 
 # Create a pie chart
 fig, ax = plt.subplots()
-ax.pie(df['Count'], labels=df['Color'], autopct='%1.1f%%')
+ax.pie(df['Count'], labels=df['Color'], autopct='%0.1f%%')
 ax.set_title('Cell Counts by Fill Color')
 
 # Show the pie chart in Streamlit
