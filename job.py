@@ -100,7 +100,7 @@ df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.cs
 
 # Define a function to search for a keyword within the DataFrame columns
 def search_columns(keyword):
-    cols_with_keyword = [col for col in df.columns if keyword.lower() in col.lower()]
+    cols_with_keyword = [col for col in df.columns if str(keyword) in str(df[col].iloc[0])]
     if len(cols_with_keyword) == 0:
         st.write("No columns found containing the keyword:", keyword)
     else:
@@ -117,6 +117,3 @@ def app():
 
 if __name__ == '__main__':
     app()
-
-
-
