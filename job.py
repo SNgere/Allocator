@@ -19,13 +19,13 @@ def highlight_2weeks(row):
     week_num = row.name.week
     week_odd = week_num % 2 == 1
     if (week_num == 15 or week_num == 16) and row.name.day < 14:
-        return ['background-color: #e0e0e0']*len(row)  # Change color for April 10-14, 2023
+        return ['background-color: #808000']*len(row)  # Change color for April 10-14, 2023
     elif (week_num % 4 == 0) and row.name.weekday() < 5:
-        return ['background-color: #c2e6c9']*len(row)  # Light green for first week
+        return ['background-color: #228B22']*len(row)  # Light green for first week
     elif (week_num % 4 == 1 or week_num % 4 == 2) and row.name.weekday() < 5:
-        return ['background-color: #f0f4c3']*len(row)  # Light yellow for second week
+        return ['background-color: #808000']*len(row)  # Light yellow for second week
     else:
-        return ['background-color: #ffffff']*len(row)  # White for other weeks
+        return ['background-color: #4F4F4F']*len(row)  # White for other weeks
 
 # Apply the function to the dataframe
 df2_weekdays_styled = df2_weekdays.style.apply(highlight_2weeks, axis=1)
