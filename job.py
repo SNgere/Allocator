@@ -22,7 +22,7 @@ weekly_work = weekly_work.dropna(how='all')
 
 # Define the start and end date for the date range filter
 start_date = pd.to_datetime('2023-04-10')
-end_date = pd.to_datetime('2023-04-14')
+end_date = pd.to_datetime('2023-04-13')
 
 # Filter the data by date range
 filtered_work = weekly_work.loc[start_date:end_date]
