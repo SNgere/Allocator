@@ -4,9 +4,11 @@ import openpyxl
 from openpyxl.styles import PatternFill
 import plotly.graph_objects as go
 
-# Read Excel file into a pandas DataFrame
+import pandas as pd
+
 url = 'https://github.com/SNgere/Allocator/raw/f1e408d2a5328114bcaabc759c995cc4c6d95562/verified.xlsx'
 df = pd.read_excel(url, engine='openpyxl')
+
 
 # Load the workbook using openpyxl
 wb = openpyxl.load_workbook(url)
