@@ -92,38 +92,23 @@ st.write(df2_weekdays)
 
 #################################################################################################################################################################
 
-import streamlit as st
 import pandas as pd
+import streamlit as st
 
-# Load the dataframe from CSV file
-df2 = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
+# Load the data from CSV file
+df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
-# Define function to search for text in dataframe columns
-def search_number(df, num):
-    cols = []
-    for col in df.columns:
-        if df[col].dtype in [int, float] and num in df[col].values:
-            cols.append(col)
-    return cols
+# Convert all columns to string except for 'Date'
+df = df.applymap(str)  # this will convert all columns to string
+df['Date'] = pd.to_datetime(df['Date'])  # convert 'Date' column back to datetime format
 
-# Set page title
-st.set_page_config(page_title="Search for Number in Dataframe", page_icon=":mag:", layout="wide")
+# Get user input for search text
+search_text = st.text_input('Enter search text (numbers only):')
 
-# Set page header
-st.title("Search for Number in Dataframe")
-st.markdown("Enter a number to search for in the dataframe.")
+# Find the column containing the search text
+numeric_cols = df.select_dtypes(include=['number']).columns
+for col in numeric_cols:
+    if search_text in df[col].values:
+        st.write(f"The search text '{search_text}' is in column '{col}'")
 
-# Get user input for number to search
-num = st.number_input("Number to search for:")
-
-# Search for number in dataframe columns
-cols = search_number(df2, num)
-
-# Display column name(s) containing search text
-if len(cols) == 0:
-    st.write("No columns found containing the number", num)
-else:
-    st.write("The number", num, "was found in the following column(s):")
-    for col in cols:
-        st.write("-", col)
 
