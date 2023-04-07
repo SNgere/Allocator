@@ -92,23 +92,19 @@ st.write(df2_weekdays)
 
 #################################################################################################################################################################
 
-# Define a function to search for text in the dataframe and return the column name(s) containing the text
-def search_dataframe(df, search_text):
-    columns_with_text = []
-    for column in df.columns:
-        if df[column].str.contains(search_text).any():
-            columns_with_text.append(column)
-    return columns_with_text
 
-# Get user input for search text
-search_text = st.text_input('Enter search text:')
+# Get search term from user
+search_term = st.text_input('Enter search term:')
 
-# Apply the search function to the dataframe
-if search_text:
-    columns_with_text = search_dataframe(df, search_text)
-    if columns_with_text:
-        st.write(f"The search text '{search_text}' is present in the following columns: {', '.join(columns_with_text)}")
-    else:
-        st.write(f"The search text '{search_text}' is not present in any column.")
+# Search for the term in the dataframe
+result = df.apply(lambda x: x.astype(str).str.contains(search_term, case=False)).any(axis=0)
 
+# Show the name of the columns containing the search term
+columns_containing_term = list(result[result == True].index)
+
+if columns_containing_term:
+    st.write(f"The search term '{search_term}' was found in the following columns:")
+    st.write(columns_containing_term)
+else:
+    st.write(f"No columns were found containing the search term '{search_term}'.")
 
