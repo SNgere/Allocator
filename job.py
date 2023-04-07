@@ -123,3 +123,6 @@ def app():
     if search_str:
         result = search_columns(search_str)
         st.write(result)
+        
+if __name__ == '__main__':
+    app()
