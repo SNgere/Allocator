@@ -17,7 +17,7 @@ font = "sans-serif"
 # Define header styles
 header_bg_color = "#222831"
 header_text_color = "#F8F8FF"
-header_font_size = "36px"
+header_font_size = "30px"
 header_font_weight = "bold"
 header_padding = "1rem"
 
