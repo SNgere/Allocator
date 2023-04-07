@@ -102,12 +102,12 @@ df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.cs
 def search_columns(keyword):
     cols_with_keyword = []
     for col in df.columns:
-        if col != 'Date' and any(str(keyword) == str(cell) for cell in df[col]):
+        if col.lower() != 'date' and any(str(keyword).lower() in str(cell).lower() for cell in df[col]):
             cols_with_keyword.append(col)
     if len(cols_with_keyword) == 0:
-        st.write("No matches found for keyword:", keyword)
+        st.write("No columns found containing the keyword:", keyword)
     else:
-        st.write("Search results:")
+        st.write("Columns containing the keyword:", keyword)
         for col in cols_with_keyword:
             st.write(col)
 
@@ -120,3 +120,4 @@ def app():
 
 if __name__ == '__main__':
     app()
+
