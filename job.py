@@ -139,7 +139,7 @@ plt.style.use('seaborn')
 # Create a pie chart with custom colors and explode
 colors = ['#ff6666', '#66b3ff']
 explode = (0.1, 0)
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(6,6))
 ax.pie(df['Count'], labels=df['Color'], autopct='%1.1f%%', startangle=90,
        colors=colors, explode=explode, shadow=True)
 ax.axis('equal')
@@ -150,4 +150,5 @@ legend = ax.legend(loc='best', bbox_to_anchor=(1, 0.5))
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
+
 
