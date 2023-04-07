@@ -96,7 +96,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the dataframe from CSV file
-df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv"')
+df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
 # Create a text input field for the search string
 search_str = st.text_input('Search for numbers')
