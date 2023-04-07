@@ -28,4 +28,10 @@ end_date = pd.to_datetime('2023-04-14')
 filtered_work = weekly_work.loc[start_date:end_date]
 
 # Display the resulting dataframe with formatting
-st.write(filtered_work.style.set_caption("Work allocation from April 10th to April 14th").format("{:.0f}").set_properties(**{'text-align': 'center'}))
+st.write(filtered_work.style
+    .set_caption("Work allocation from April 10th to April 14th")
+    .format("{:.0f}")
+    .set_properties(**{'text-align': 'center'})
+    .set_table_styles([{'selector': 'th', 'props': [('font-size', '120%')]}]) # increase table size
+    .set_properties(subset=['Date'], **{'width': '120px'}) # remove time component from date column
+    .set_properties(subset=['Date'], **{'text-align': 'center'})) # center align date column
