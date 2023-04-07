@@ -101,9 +101,20 @@ df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.cs
 # Add a text input widget to allow the user to search
 search_term = st.text_input("Search")
 
+# Convert the search term to a numeric type
+try:
+    search_num = int(search_term)
+except ValueError:
+    try:
+        search_num = float(search_term)
+    except ValueError:
+        search_num = None
+
 # Filter the DataFrame based on the search term
-filtered_df = df[df.apply(lambda x: x.astype(str) == search_term, axis=1)]
+if search_num is not None:
+    filtered_df = df[df.apply(lambda x: x.astype(float) == search_num, axis=1)]
+else:
+    filtered_df = df
 
 # Display the filtered DataFrame
 st.write(filtered_df)
-
