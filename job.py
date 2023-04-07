@@ -4,7 +4,7 @@ import numpy as np
 
 # Set page title
 st.set_page_config(
-    page_title="Weekly Batch Allocation",
+    page_title="Scanning Department",
     page_icon=":memo:",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -24,7 +24,7 @@ header_padding = "1rem"
 # Define subheader styles
 subheader_bg_color = "#393e46"
 subheader_text_color = "#F8F8FF"
-subheader_font_size = "24px"
+subheader_font_size = "20px"
 subheader_font_weight = "bold"
 subheader_padding = "0.5rem"
 
@@ -62,7 +62,7 @@ st.markdown(
     </div>
     
     <div class="main-subheader">
-        <span>Batches allocated weekly.</span>
+        <span>Batches allocated weekly</span>
     </div>
     """,
     unsafe_allow_html=True
