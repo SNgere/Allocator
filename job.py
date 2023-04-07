@@ -92,32 +92,34 @@ st.write(df2_weekdays)
 
 #################################################################################################################################################################
 
-import streamlit as st
 import pandas as pd
+import streamlit as st
 
-# Load the data from CSV file
+# Load the data
 df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
-# Define a function to search for a keyword within the DataFrame columns
-def search_columns(keyword):
-    cols_with_keyword = []
+# Define the search function
+def search_columns(input_str):
+    # Iterate over the columns of the DataFrame
     for col in df.columns:
-        if col.lower() != 'date' and any(str(cell) == str(keyword) for cell in df[col]):
-            cols_with_keyword.append(col)
-    if len(cols_with_keyword) == 0:
-        st.write("No column contains the keyword:", keyword)
-    else:
-        st.write("The following columns contain the keyword:", keyword)
-        for col in cols_with_keyword:
-            st.write(col)
+        # If the input string matches the column name, return the column
+        if input_str.lower() == col.lower():
+            return df[col]
+    # If no matching column was found, return an error message
+    return "No matching column found."
 
 # Define the Streamlit app
 def app():
-    st.title("Search Columns")
-    st.write(df)
-    keyword = st.text_input("Enter a keyword to search for within columns:")
-    if st.button("Search"):
-        search_columns(keyword)
+    # Set the page title
+    st.set_page_config(page_title="Column Search")
 
-if __name__ == '__main__':
-    app()
+    # Add a title to the app
+    st.title("Column Search")
+
+    # Add a text input field for the user to enter their search string
+    search_str = st.text_input("Enter a column name:")
+
+    # If the user has entered a search string, search for the column and display the results
+    if search_str:
+        result = search_columns(search_str)
+        st.write(result)
