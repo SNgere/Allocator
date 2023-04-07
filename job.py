@@ -27,5 +27,16 @@ end_date = pd.to_datetime('2023-04-14')
 # Filter the data by date range
 filtered_work = weekly_work.loc[start_date:end_date]
 
-# Display the resulting dataframe with formatting
-st.write(filtered_work.style.set_caption("Work allocation from April 10th to April 14th").format("{:.0f}").set_properties(**{'text-align': 'center'}))
+# Define the color map for each name
+cmap = {'Alice': 'lightblue', 'Bob': 'lightgreen', 'Charlie': 'lightpink', 'Dave': 'lavender', 'Eve': 'lightyellow'}
+
+# Apply background gradient to each name based on its color map
+styled_table = filtered_work.style.background_gradient(subset=pd.IndexSlice[:, 'Alice'], cmap=cmap['Alice']).\
+              background_gradient(subset=pd.IndexSlice[:, 'Bob'], cmap=cmap['Bob']).\
+              background_gradient(subset=pd.IndexSlice[:, 'Charlie'], cmap=cmap['Charlie']).\
+              background_gradient(subset=pd.IndexSlice[:, 'Dave'], cmap=cmap['Dave']).\
+              background_gradient(subset=pd.IndexSlice[:, 'Eve'], cmap=cmap['Eve'])
+
+# Display the resulting dataframe with formatting and color map
+st.write(styled_table.set_caption("Work allocation from April 10th to April 14th").\
+          format("{:.0f}").set_properties(**{'text-align': 'center'}))
