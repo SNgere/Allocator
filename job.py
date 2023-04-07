@@ -118,7 +118,7 @@ def app():
     st.set_page_config(page_title="Column Search")
 
     # Add a title to the app
-    st.title("Column Search")
+    #st.title("Column Search")
 
     # Add a text input field for the user to enter their search string
     search_str = st.text_input("Enter a column name:")
