@@ -58,7 +58,7 @@ st.markdown(
     
     <div class="main-header">
         <div class="css-hby737"> </div>
-        <span>Weekly Work Allocation</span>
+        <span>Scanning Department</span>
     </div>
     
     <div class="main-subheader">
