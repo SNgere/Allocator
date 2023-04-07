@@ -105,16 +105,16 @@ def search_columns(keyword):
         if col.lower() != 'date' and any(str(keyword).lower() in str(cell).lower() for cell in df[col]):
             cols_with_keyword.append(col)
     if len(cols_with_keyword) == 0:
-        st.write("No columns found containing the keyword:", keyword)
+        st.write("Not allocated", keyword)
     else:
-        st.write("Columns containing the keyword:", keyword)
+        st.write("The batch was allocated to :", keyword)
         for col in cols_with_keyword:
             st.write(col)
 
 # Define the Streamlit app
 def app():
-    st.subheader("Search Columns")
-    keyword = st.text_input("Enter a keyword to search for within columns:")
+    st.subheader("Search")
+    #keyword = st.text_input("Enter a keyword to search for within columns:")
     if st.button("Search"):
         search_columns(keyword)
 
