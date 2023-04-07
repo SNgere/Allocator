@@ -91,44 +91,18 @@ df2_weekdays.index = df2_weekdays.index.map(format_date)
 st.write(df2_weekdays)
 
 #################################################################################################################################################################
+
 import pandas as pd
 import streamlit as st
 
 # Load the data
 df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv")
 
-# Define the search function
-def search_columns(input_str):
-    # Create an empty list to hold matching columns
-    matching_cols = []
-    # Iterate over the columns of the DataFrame
-    for col in df.columns:
-        # If the input string is a substring of the column name, add the column to the list
-        if input_str.lower() in col.lower():
-            matching_cols.append(col)
-    # If no matching columns were found, return an error message
-    if not matching_cols:
-        return "No matching columns found."
-    # Otherwise, return the matching columns
-    return matching_cols
+# Add a text input widget to allow the user to search
+search_term = st.text_input("Search")
 
-# Define the Streamlit app
-def app():
-    # Set the page title
-    st.set_page_config(page_title="Column Search")
+# Filter the DataFrame based on the search term
+filtered_df = df[df.apply(lambda x: x.astype(str).str.contains(search_term, case=False).any(), axis=1)]
 
-    # Add a title to the app
-    #st.title("Column Search")
-
-    # Add a text input field for the user to enter their search string
-    search_str = st.text_input("Enter a column name:")
-
-    # If the user has entered a search string, search for the matching columns and display the results
-    if search_str:
-        matching_cols = search_columns(search_str)
-        st.write("Matching columns:")
-        for col in matching_cols:
-            st.write(col)
-
-if __name__ == '__main__':
-    app()
+# Display the filtered DataFrame
+st.write(filtered_df)
