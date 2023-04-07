@@ -92,16 +92,25 @@ st.write(df2_weekdays)
 
 #################################################################################################################################################################
 
+import streamlit as st
+import pandas as pd
+
 # Load the dataframe from CSV file
-df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
+df = pd.read_csv("https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv"')
 
-# Create a text input for the user to search for a number
-search_text = st.text_input('Enter a number to search for:')
+# Create a text input field for the search string
+search_str = st.text_input('Search for numbers')
 
-# Iterate over the columns in the dataframe
-for column in df.columns:
-    # Check if the search text is in the column
-    if search_text in df[column].values.astype(str):
-        st.write(f"Found '{search_text}' in column '{column}'.")
+# Search for the string in the dataframe
+cols_with_text = [col for col in df.columns if search_str in df[col].astype(str).str.contains(search_str, regex=False)]
+
+# Display the names of the columns containing the search text
+if cols_with_text:
+    st.write(f"The search string '{search_str}' was found in the following columns:")
+    for col in cols_with_text:
+        st.write(f"- {col}")
+else:
+    st.write(f"No columns contain the search string '{search_str}'.")
+
 
 
