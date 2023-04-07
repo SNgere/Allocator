@@ -5,13 +5,24 @@ import matplotlib.pyplot as plt
 # Read the CSV file into a pandas DataFrame
 df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
 
-# Create a pie chart
+# Set up plot style
+plt.style.use('seaborn')
+
+# Create a pie chart with custom colors and explode
+colors = ['#ff6666', '#66b3ff']
+explode = (0.1, 0)
 fig, ax = plt.subplots()
-ax.pie(df['Count'], labels=df['Color'], autopct='%0.001f%%')
-ax.set_title('Cell Counts by Fill Color')
+ax.pie(df['Count'], labels=df['Color'], autopct='%1.1f%%', startangle=90,
+       colors=colors, explode=explode, shadow=True)
+ax.axis('equal')
+ax.set_title('Cell Counts by Fill Color', fontweight='bold')
+
+# Add legend
+legend = ax.legend(loc='best', bbox_to_anchor=(1, 0.5))
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
+
 
 #############################################################################################################################################################
 
