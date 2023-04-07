@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the Excel file into a Pandas DataFrame
-excel_file = pd.read_excel('job.xlsx', sheet_name=None)
+excel_file = pd.read_excel('https://github.com/SNgere/Allocator/blob/e55257a9658e72e3093c18d212afbee8df88ad2d/job.xlsx', sheet_name=None)
 
 # Get the DataFrame for each sheet
 sheet1_df = excel_file['Sheet1']
