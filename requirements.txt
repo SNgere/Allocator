@@ -2,3 +2,4 @@ matplotlib
 plotly
 openpyxl
 echarts
+streamlit_echarts
