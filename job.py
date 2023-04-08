@@ -126,7 +126,6 @@ else:
 
 #####################################################################################################################################
 
-import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -136,22 +135,15 @@ df = pd.read_csv('cell_counts.csv')
 # Set up plot style
 plt.style.use('default')
 
-# Create a pie chart with custom colors and explode
+# Create a pie chart with custom colors
 colors = ['#ff6666', '#66b3ff']
 explode = (0.1, 0)
-fig, ax = plt.subplots(figsize=(8, 4))
-wedges, labels, _ = ax.pie(df['Count'], labels=df['Color'], startangle=90,
-       colors=colors, explode=explode, shadow=True, autopct='%1.1f%%', textprops={'fontsize': 12})
-
+fig, ax = plt.subplots()
+wedges, labels, autopct = ax.pie(df['Count'], labels=df['Color'], startangle=90,
+       colors=['olivedrab', 'rosybrown', 'gray', 'saddlebrown'], explode=explode, shadow=True, autopct='%1.1f%%')
 ax.axis('equal')
 ax.set_title('Cell Counts by Fill Color', fontweight='bold')
 
-# Set up fancy hatch pattern
-hatches = ['**O', 'oO']
+# Show the pie chart
+plt.show()
 
-# Add hatch pattern to each wedge of the pie chart
-for i, wedge in enumerate(wedges):
-    wedge.set_hatch(hatches[i % len(hatches)])
-
-# Show the pie chart in Streamlit
-st.pyplot(fig)
