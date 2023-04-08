@@ -137,10 +137,10 @@ df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_c
 plt.style.use('default')
 
 # Create a pie chart with custom colors and explode
-colors = ['#F8DC75', '#66b3ff']
-explode = (0.05, 0)
-fig, ax = plt.subplots(figsize=(8, 3))
-wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=180,
+colors = ['#99ff99', '#66b3ff']
+explode = (0.005, 0)
+fig, ax = plt.subplots(figsize=(10, 3))
+wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=150,
        colors=colors, explode=explode, shadow= False)
 ax.axis('equal')
 ax.set_title('Progress', fontweight='bold')
