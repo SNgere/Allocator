@@ -63,8 +63,7 @@ st.markdown(
     </div>
     
     <div class="main-subheader">
-        <span>Completed and Outstanding Tasks
-        
+        <span>Completed and Outstanding Tasks     
         </span>
     </div>
     """,
