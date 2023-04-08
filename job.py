@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file into a pandas DataFrame
-df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
+df3 = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
 
 # Set up plot style
 plt.style.use('default')
@@ -12,7 +12,7 @@ plt.style.use('default')
 colors = ['#008000', '#66b3ff']
 explode = (0.02, 0)
 fig, ax = plt.subplots(figsize=(8, 4))
-wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=120,
+wedges, labels = ax.pie(df3['Count'], labels=df3['Color'], startangle=120,
        colors=colors, explode=explode, shadow=False)
 
 ax.axis('equal')
