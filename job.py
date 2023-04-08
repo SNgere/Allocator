@@ -125,31 +125,45 @@ else:
     st.write("Enter a valid number to search.")
 
 #####################################################################################################################################
-
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Read the CSV file into a pandas DataFrame
 df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
 
 # Set up plot style
-plt.style.use('default')
+plt.style.use('seaborn')
+fig, ax = plt.subplots(figsize=(5, 5), facecolor='#f2f2f2')
 
-# Create a horizontal bar chart
-fig, ax = plt.subplots(figsize=(6, 3))
+# Create a pie chart with custom colors and explode
 colors = ['#ff6666', '#66b3ff']
-ax.barh(df['Color'], df['Count'], color=colors)
-ax.set_title('Cell Counts by Fill Color', fontweight='bold')
+explode = (0.1, 0)
+wedges, texts, autotexts = ax.pie(df['Count'], labels=df['Color'], autopct='%1.1f%%', startangle=90,
+       colors=colors, explode=explode, shadow=True, textprops=dict(color="w"))
 
-# Add arrows to indicate cell counts
-for i, count in enumerate(df['Count']):
-    ax.annotate(f'{count}', xy=(count, i), ha='left', va='center', fontsize=12, fontweight='bold',
-                xytext=(10, 0), textcoords='offset points',
-                arrowprops=dict(facecolor='black', width=1, headwidth=5, headlength=5))
+# Add arrows inside the pie chart
+center_circle = plt.Circle((0,0),0.70,fc='white')
+fig.gca().add_artist(center_circle)
 
-# Show the chart in Streamlit
+for i, wedge in enumerate(wedges):
+    ang = (wedge.theta2 - wedge.theta1)/2. + wedge.theta1
+    y = np.sin(np.deg2rad(ang))
+    x = np.cos(np.deg2rad(ang))
+    horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
+    connectionstyle = f"angle,angleA=0,angleB={ang}"
+    ax.annotate(f"{df['Count'][i]}", xy=(x, y), xytext=(1.2*np.sign(x), 1.2*y),
+            horizontalalignment=horizontalalignment, fontsize=10, fontweight='bold',
+            xycoords=ax.transData, textcoords=ax.transData,
+            arrowprops=dict(arrowstyle="->", color='white', lw=1.5, connectionstyle=connectionstyle))
+
+ax.axis('equal')
+ax.set_title('Cell Counts by Fill Color', fontweight='bold', fontsize=16)
+
+# Show the pie chart in Streamlit
 st.pyplot(fig)
+
 
 
 
