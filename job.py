@@ -131,20 +131,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file into a pandas DataFrame
-df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
+df = pd.DataFrame({'Color': ['verified', 'unverified'], 'Count': [7, 23]})
 
 # Set up plot style
 plt.style.use('default')
+
+# Define function to format the raw values
+def my_fmt(x):
+    return f'{x} ({x/sum(df["Count"])*100:.1f}%)'
 
 # Create a pie chart with custom colors and explode
 colors = ['#008000', '#66b3ff']
 explode = (0.02, 0)
 fig, ax = plt.subplots(figsize=(8, 4))
-wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=120,
-       colors=colors, explode=explode, shadow= False)
+wedges, labels, autotexts = ax.pie(df['Count'], labels=df['Color'], startangle=120,
+       colors=colors, explode=explode, shadow= False, autopct=my_fmt)
 ax.axis('equal')
 ax.set_title('Progress', fontweight='bold')
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
-
