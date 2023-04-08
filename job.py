@@ -154,8 +154,8 @@ for i, wedge in enumerate(wedges):
                  xy=(0,0), 
                  xytext=(x,y),
                  textcoords="offset points",
-                 ha='left',
-                 va='left',
+                 ha='top',
+                 va='top',
                  fontsize=10,
                  fontweight='bold')
 
