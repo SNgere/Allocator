@@ -158,7 +158,7 @@ if search_num is not None:
     if not match_found:
         st.write(f"No match found for {search_num}.")
 else:
-    st.write("Enter a valid number to search.")
+    st.write("Enter Batch No.")
 
 #####################################################################################################################################
 
