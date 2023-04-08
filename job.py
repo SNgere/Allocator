@@ -139,7 +139,7 @@ plt.style.use('default')
 colors = ['#ff6666', '#66b3ff']
 explode = (0.5, 0)
 fig, ax = plt.subplots(figsize=(8, 4))
-wedges, labels, autopct = ax.pie(df['Count'], labels=df['Color'], startangle=90,
+wedges, labels, labels=df['Color'], startangle=90,
        colors=colors, explode=explode, shadow=True)
 ax.axis('equal')
 ax.set_title('Cell Counts by Fill Color', fontweight='bold')
