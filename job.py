@@ -63,7 +63,7 @@ st.markdown(
     </div>
     
     <div class="main-subheader">
-        <span>Completed and Outstanding Tasks     
+        <span>Completed vs Outstanding Tasks     
         </span>
     </div>
     """,
@@ -103,7 +103,7 @@ for i, wedge in enumerate(wedges):
 # Show the pie chart in Streamlit
 st.pyplot(fig)
 
-
+st.header('Batches allocated weekly')
 
 # Load the dataframe from CSV file
 df2 = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
