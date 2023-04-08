@@ -1,12 +1,7 @@
-
-
-
-########################################################################################################################################################
-
-
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Set page title
 st.set_page_config(
@@ -68,16 +63,15 @@ st.markdown(
     </div>
     
     <div class="main-subheader">
-        <span>Batches allocated weekly</span>
+        <span>Completed and Outstanding Tasks
+        
+        </span>
     </div>
     """,
     unsafe_allow_html=True
 )
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+
 
 # Read the CSV file into a pandas DataFrame
 df3 = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
@@ -93,7 +87,7 @@ wedges, labels = ax.pie(df3['Count'], labels=df3['Color'], startangle=120,
        colors=colors, explode=explode, shadow=False)
 
 ax.axis('equal')
-ax.set_title('Progress', fontweight='bold')
+#ax.set_title('Progress', fontweight='bold')
 
 # Add the values inside the pies
 for i, wedge in enumerate(wedges):
