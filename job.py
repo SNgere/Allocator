@@ -130,7 +130,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file into a pandas DataFrame
-df = pd.read_csv('cell_counts.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
 
 # Set up plot style
 plt.style.use('default')
