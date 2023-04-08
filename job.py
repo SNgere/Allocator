@@ -29,7 +29,7 @@ for i, wedge in enumerate(wedges):
     y = np.sin(ang)*wedge.r*0.8
     x = np.cos(ang)*wedge.r*0.8
     # Place the text label at the calculated position
-    ax.text(x, y, str(df['Count'][i]), ha='center', va='center', fontweight='bold', fontsize=12)
+    ax.text(x, y, str(df3['Count'][i]), ha='center', va='center', fontweight='bold', fontsize=12)
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
