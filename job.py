@@ -138,9 +138,9 @@ plt.style.use('default')
 
 # Create a pie chart with custom colors and explode
 colors = ['#99ff99', '#66b3ff']
-explode = (0.005, 0)
+explode = (0.02, 0)
 fig, ax = plt.subplots(figsize=(10, 3))
-wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=150,
+wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=120,
        colors=colors, explode=explode, shadow= False)
 ax.axis('equal')
 ax.set_title('Progress', fontweight='bold')
