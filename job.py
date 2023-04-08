@@ -134,10 +134,10 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
 
 # Set up plot style
-plt.style.use('seaborn')
+plt.style.use('default')
 
 # Create a pie chart with custom colors and explode
-colors = ['#000000', '#FFFFFF']
+colors = ['#ff6666', '#66b3ff']
 explode = (0.1, 0)
 fig, ax = plt.subplots(figsize=(6, 4))
 ax.pie(df['Count'], labels=df['Color'], autopct='%1.1f%%', startangle=90,
@@ -145,13 +145,16 @@ ax.pie(df['Count'], labels=df['Color'], autopct='%1.1f%%', startangle=90,
 ax.axis('equal')
 ax.set_title('Cell Counts by Fill Color', fontweight='bold')
 
-# Add legend
-legend = ax.legend(loc='best', bbox_to_anchor=(1, 0.5))
-
-# Remove the background color from the figure
-fig.patch.set_facecolor('none')
+# Add arrows to indicate cell values
+for i, (color, count) in enumerate(zip(df['Color'], df['Count'])):
+    angle = (df['Count'][:i].sum() + count / 2) / df['Count'].sum() * 360
+    x = 1.1 * np.cos(np.deg2rad(angle))
+    y = 1.1 * np.sin(np.deg2rad(angle))
+    ax.annotate(f'{count}\n{color}', xy=(x, y), xytext=(1.3 * x, 1.3 * y),
+                arrowprops=dict(facecolor='black', arrowstyle='->'))
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
+
 
 
