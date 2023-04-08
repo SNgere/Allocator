@@ -134,21 +134,29 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
 
 # Set up plot style
-plt.style.use('seaborn')
+plt.style.use('default')
 
 # Create a pie chart with custom colors and explode
-colors = ['#ff6666', '#66b3ff']
-explode = (0.1, 0)
-fig, ax = plt.subplots(figsize=(6,6))
-ax.pie(df['Count'], labels=df['Color'], autopct='%1.1f%%', startangle=90,
-       colors=colors, explode=explode, shadow=True)
-ax.axis('equal')
-ax.set_title('Cell Counts by Fill Color', fontweight='bold')
+colors = ['#008000', '#66b3ff']
+explode = (0.02, 0)
+fig, ax = plt.subplots(figsize=(8, 4))
+wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=120,
+       colors=colors, explode=explode, shadow=False)
 
-# Add legend
-legend = ax.legend(loc='best', bbox_to_anchor=(1, 0.5))
+ax.axis('equal')
+ax.set_title('Progress', fontweight='bold')
+
+# Add the values inside the pies
+for i, wedge in enumerate(wedges):
+    # Calculate the angle at the middle of the wedge
+    ang = (wedge.theta2 - wedge.theta1)/2. + wedge.theta1
+    # Convert the angle to radians
+    ang = ang*np.pi/180.
+    # Calculate the position of the text label
+    y = np.sin(ang)*wedge.r*0.8
+    x = np.cos(ang)*wedge.r*0.8
+    # Place the text label at the calculated position
+    ax.text(x, y, str(df['Count'][i]), ha='center', va='center', fontweight='bold', fontsize=12)
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
-
-
