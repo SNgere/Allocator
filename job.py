@@ -138,8 +138,8 @@ plt.style.use('default')
 
 # Create a pie chart with custom colors and explode
 colors = ['#F8DC75', '#66b3ff']
-explode = (0.1, 0)
-fig, ax = plt.subplots(figsize=(6, 3))
+explode = (0.05, 0)
+fig, ax = plt.subplots(figsize=(4, 3))
 wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=180,
        colors=colors, explode=explode, shadow= False)
 ax.axis('equal')
