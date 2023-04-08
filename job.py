@@ -141,20 +141,22 @@ colors = ['#008000', '#66b3ff']
 explode = (0.02, 0)
 fig, ax = plt.subplots(figsize=(8, 4))
 wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=120,
-       colors=colors, explode=explode, shadow= False)
+       colors=colors, explode=explode, shadow=False)
+
 ax.axis('equal')
 ax.set_title('Progress', fontweight='bold')
 
-# Add the values on the rows to the chart
+# Add the values inside the pies
 for i, wedge in enumerate(wedges):
-    ax.annotate(f"{df['Count'][i]}",
-                xy=wedge.center,
-                va='center',
-                ha='center',
-                fontsize=12,
-                fontweight='bold')
+    # Calculate the angle at the middle of the wedge
+    ang = (wedge.theta2 - wedge.theta1)/2. + wedge.theta1
+    # Convert the angle to radians
+    ang = ang*np.pi/180.
+    # Calculate the position of the text label
+    y = np.sin(ang)*wedge.r*0.8
+    x = np.cos(ang)*wedge.r*0.8
+    # Place the text label at the calculated position
+    ax.text(x, y, str(df['Count'][i]), ha='center', va='center', fontweight='bold', fontsize=12)
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
-
-
