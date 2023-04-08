@@ -135,20 +135,26 @@ df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_c
 
 # Set up plot style
 plt.style.use('seaborn')
+plt.rcParams['axes.facecolor'] = 'white'
+colors = ['black', 'white']
 
 # Create a pie chart with custom colors and explode
-colors = ['#ff6666', '#66b3ff']
 explode = (0.1, 0)
-fig, ax = plt.subplots(figsize=(6,6))
+fig, ax = plt.subplots(figsize=(6, 6))
 ax.pie(df['Count'], labels=df['Color'], autopct='%1.1f%%', startangle=90,
        colors=colors, explode=explode, shadow=True)
 ax.axis('equal')
-ax.set_title('Cell Counts by Fill Color', fontweight='bold')
+ax.set_title('Cell Counts by Fill Color', fontweight='bold', color='black')
 
 # Add legend
-legend = ax.legend(loc='best', bbox_to_anchor=(1, 0.5))
+legend = ax.legend(loc='best', bbox_to_anchor=(1, 0.5), facecolor='white', edgecolor='black')
+
+# Remove border
+plt.rcParams['axes.edgecolor'] = 'white'
+plt.rcParams['axes.linewidth'] = 0
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
+
 
 
