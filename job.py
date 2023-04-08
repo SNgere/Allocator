@@ -126,22 +126,38 @@ else:
 
 #####################################################################################################################################
 
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the CSV file into a pandas DataFrame
+df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
+
+# Set up plot style
+plt.style.use('default')
+
 # Create a pie chart with custom colors and explode
 colors = ['#ff6666', '#66b3ff']
 explode = (0.1, 0)
-fig, ax = plt.subplots(figsize=(6, 4))
-ax.pie(df['Count'], labels=df['Color'], autopct='', startangle=90,
+fig, ax = plt.subplots(figsize=(8, 4))
+wedges, labels, autopct = ax.pie(df['Count'], labels=df['Color'], autopct='', startangle=90,
        colors=colors, explode=explode, shadow=True)
 ax.axis('equal')
 ax.set_title('Cell Counts by Fill Color', fontweight='bold')
 
-# Add arrows
-for i, count in enumerate(df['Count']):
-    angle = 90 - i/len(df)*360
-    x = (0.6+explode[0]/2)*np.cos(np.deg2rad(angle))
-    y = (0.6+explode[0]/2)*np.sin(np.deg2rad(angle))
-    ax.annotate(str(count), xy=(x, y), ha='center', va='center',
-                fontsize=12, fontweight='bold')
+# Add arrows to indicate values
+for i, wedge in enumerate(wedges):
+    angle = (wedge.theta2 - wedge.theta1)/2. + wedge.theta1
+    y = wedge.r * 1.1 * np.sin(angle*np.pi/180)
+    x = wedge.r * 1.1 * np.cos(angle*np.pi/180)
+    plt.annotate(f"{df['Count'][i]}",
+                 xy=(0,0), 
+                 xytext=(x,y),
+                 textcoords="offset points",
+                 ha='center',
+                 va='center',
+                 fontsize=10,
+                 fontweight='bold')
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
