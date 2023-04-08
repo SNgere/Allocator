@@ -126,6 +126,7 @@ else:
 
 #####################################################################################################################################
 
+import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -135,15 +136,14 @@ df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_c
 # Set up plot style
 plt.style.use('default')
 
-# Create a pie chart with custom colors
+# Create a pie chart with custom colors and explode
 colors = ['#ff6666', '#66b3ff']
 explode = (0.1, 0)
-fig, ax = plt.subplots()
-wedges, labels, autopct = ax.pie(df['Count'], labels=df['Color'], startangle=90,
-       colors=['rosybrown', 'gray'], explode=explode, shadow=True, autopct='%1.1f%%')
+fig, ax = plt.subplots(figsize=(8, 4))
+wedges, labels = ax.pie(df['Count'], labels=df['Color'],  startangle=70,
+       colors=colors, explode=explode, shadow=True)
 ax.axis('equal')
 ax.set_title('Cell Counts by Fill Color', fontweight='bold')
 
-# Show the pie chart
-plt.show()
-
+# Show the pie chart in Streamlit
+st.pyplot(fig)
