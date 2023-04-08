@@ -131,7 +131,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file into a pandas DataFrame
-df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_counts.csv')
+df = pd.read_csv('cell_counts.csv')
 
 # Set up plot style
 plt.style.use('default')
@@ -140,24 +140,18 @@ plt.style.use('default')
 colors = ['#ff6666', '#66b3ff']
 explode = (0.1, 0)
 fig, ax = plt.subplots(figsize=(8, 4))
-wedges, labels, autopct = ax.pie(df['Count'], labels=df['Color'], startangle=60,
-       colors=colors, explode=explode, shadow=True, textprops={'fontsize': 12})
+wedges, labels, _ = ax.pie(df['Count'], labels=df['Color'], startangle=90,
+       colors=colors, explode=explode, shadow=True, autopct='%1.1f%%', textprops={'fontsize': 12})
+
 ax.axis('equal')
 ax.set_title('Cell Counts by Fill Color', fontweight='bold')
 
-# Show the raw count values in the pie chart labels
-new_labels = []
-for i, label in enumerate(labels):
-    new_label = label.get_text() + f" ({df['Count'][i]})"
-    new_labels.append(new_label)
-ax.legend(wedges, new_labels, loc="best", bbox_to_anchor=(1, 0, 0.5, 1))
+# Set up fancy hatch pattern
+hatches = ['**O', 'oO']
+
+# Add hatch pattern to each wedge of the pie chart
+for i, wedge in enumerate(wedges):
+    wedge.set_hatch(hatches[i % len(hatches)])
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
-
-
-
-
-
-
-
