@@ -137,11 +137,11 @@ df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_c
 plt.style.use('default')
 
 # Create a pie chart with custom colors and explode
-colors = ['#FF7F50', '#6495ED']
+colors = ['##F8DC75', '#ADD8E6']
 explode = (0.1, 0)
 fig, ax = plt.subplots(figsize=(6, 3))
 wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=30,
-       colors=colors, explode=explode, shadow=True)
+       colors=colors, explode=explode, shadow= False)
 ax.axis('equal')
 ax.set_title('Cell Counts by Fill Color', fontweight='bold')
 
