@@ -140,13 +140,21 @@ plt.style.use('default')
 colors = ['#ff6666', '#66b3ff']
 explode = (0.1, 0)
 fig, ax = plt.subplots(figsize=(8, 4))
-wedges, labels, autopct = ax.pie(df['Count'], labels=df['Color'], startangle=0,
-       colors=colors, explode=explode, shadow=True, autopct='%1.1f%%')
+wedges, labels, autopct = ax.pie(df['Count'], labels=df['Color'], startangle=60,
+       colors=colors, explode=explode, shadow=True, textprops={'fontsize': 12})
 ax.axis('equal')
 ax.set_title('Cell Counts by Fill Color', fontweight='bold')
 
+# Show the raw count values in the pie chart labels
+new_labels = []
+for i, label in enumerate(labels):
+    new_label = label.get_text() + f" ({df['Count'][i]})"
+    new_labels.append(new_label)
+ax.legend(wedges, new_labels, loc="best", bbox_to_anchor=(1, 0, 0.5, 1))
+
 # Show the pie chart in Streamlit
 st.pyplot(fig)
+
 
 
 
