@@ -137,13 +137,13 @@ df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_c
 plt.style.use('default')
 
 # Create a pie chart with custom colors and explode
-colors = ['#F8DC75', '#ADD8E6']
+colors = ['#F8DC75', '#66b3ff ']
 explode = (0.1, 0)
 fig, ax = plt.subplots(figsize=(6, 3))
-wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=30,
+wedges, labels = ax.pie(df['Count'], labels=df['Color'], startangle=180,
        colors=colors, explode=explode, shadow= False)
 ax.axis('equal')
-ax.set_title('Cell Counts by Fill Color', fontweight='bold')
+ax.set_title('Progress', fontweight='bold')
 
 # Show the pie chart in Streamlit
 st.pyplot(fig)
