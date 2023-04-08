@@ -136,24 +136,19 @@ df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/cell_c
 # Set up plot style
 plt.style.use('default')
 
-# Create a pie chart with custom colors and explode
+# Create a horizontal bar chart
+fig, ax = plt.subplots(figsize=(6, 3))
 colors = ['#ff6666', '#66b3ff']
-explode = (0.1, 0)
-fig, ax = plt.subplots(figsize=(6, 4))
-ax.pie(df['Count'], labels=df['Color'], autopct='%1.1f%%', startangle=90,
-       colors=colors, explode=explode, shadow=True)
-ax.axis('equal')
+ax.barh(df['Color'], df['Count'], color=colors)
 ax.set_title('Cell Counts by Fill Color', fontweight='bold')
 
-# Add arrows to indicate cell values
-for i, (color, count) in enumerate(zip(df['Color'], df['Count'])):
-    angle = (df['Count'][:i].sum() + count / 2) / df['Count'].sum() * 360
-    x = 1.1 * np.cos(np.deg2rad(angle))
-    y = 1.1 * np.sin(np.deg2rad(angle))
-    ax.annotate(f'{count}\n{color}', xy=(x, y), xytext=(1.3 * x, 1.3 * y),
-                arrowprops=dict(facecolor='black', arrowstyle='->'))
+# Add arrows to indicate cell counts
+for i, count in enumerate(df['Count']):
+    ax.annotate(f'{count}', xy=(count, i), ha='left', va='center', fontsize=12, fontweight='bold',
+                xytext=(10, 0), textcoords='offset points',
+                arrowprops=dict(facecolor='black', width=1, headwidth=5, headlength=5))
 
-# Show the pie chart in Streamlit
+# Show the chart in Streamlit
 st.pyplot(fig)
 
 
