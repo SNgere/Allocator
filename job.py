@@ -129,41 +129,44 @@ st.write(df2_weekdays)
 
 #################################################################################################################################################################
 
-import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import streamlit as st
 
-# read the CSV file into a pandas DataFrame
+# Load the CSV file into a pandas DataFrame
 df = pd.read_csv('job.csv')
 
-# drop the 'Date' column
+# Drop the 'Date' column
 df = df.drop('Date', axis=1)
 
-# convert numeric columns to string type
+# Convert numeric columns to string type
 df = df.astype(str)
 
-# calculate the ratio of cells with * to those without for each column
+# Calculate the ratio of cells with * to those without for each column
 ratios = df.apply(lambda x: x.str.contains('\*').value_counts(normalize=True).get(True, 0)) * 10
 
-# sort the ratios in ascending order and assign colors to the bars based on their values
-ratios_sorted = ratios.sort_values(ascending=True)
-colors = ['#0072B2' if v < 1 else '#E69F00' if v < 5 else '#D55E00' for v in ratios_sorted]
+# Sort the ratios in descending order
+ratios = ratios.sort_values(ascending=True)
 
-# plot the ratios as a horizontal bar chart
+# Create a horizontal bar chart using matplotlib and display it in the Streamlit app
 fig, ax = plt.subplots()
-ax = ratios_sorted.plot(kind='barh', color=colors)
+ratios.plot(kind='barh', ax=ax, color='tab:blue')
 ax.set_xlim([0, 10])
 ax.set_xticks(range(0, 11, 1))
-plt.xlabel('Ratio of cells with *')
-plt.ylabel('Column')
+plt.xlabel('Batches completed out of those allocated')
 
-# add sad emoji if the bar is less than or equal to 5
-for i, v in enumerate(ratios_sorted):
+# Add vertical lines to show where the bars are on the scale
+for x in range(11):
+    ax.axvline(x=x, color='gray', alpha=0.1)
+
+# Add sad emoji if the bar is less than or equal to 5
+for i, v in enumerate(ratios):
     if v < 1:
-        ax.text(v + 0.2, i, u'\U0001F480', fontsize=16, color='white') # \U0001F622
+        ax.text(v + 0.2, i, u'\U0001F622', fontsize=16, color='red') # \U0001F622
 
-# display the plot in Streamlit
+# Display the chart in the Streamlit app
 st.pyplot(fig)
+
 
 ##########################################################################################################################################################
 
