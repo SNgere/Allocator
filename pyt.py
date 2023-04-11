@@ -1,6 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import streamlit as st
 
 # read the CSV file into a pandas DataFrame
 df = pd.read_csv('job.csv')
@@ -22,12 +21,9 @@ ax.set_xticks(range(0, 11, 1))
 plt.xlabel('Ratio of cells with *')
 plt.ylabel('Column')
 
-# add emojis if the bar is less than or greater than a certain value
+# add sad emoji if the bar is less than or equal to 5
 for i, v in enumerate(ratios):
     if v < 1:
-        ax.text(v + 0.2, i, u'\U0001F480', fontsize=16, color='red')
-    elif v > 2 and v < 5:
-        ax.text(v + 0.2, i, u'\U0001F44A', fontsize=16, color='green')
+        ax.text(v + 0.2, i, u'\U0001F622', fontsize=16, color='red') # \U0001F622
 
-# render the plot in Streamlit
-st.pyplot(fig)
+plt.show()
