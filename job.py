@@ -134,7 +134,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 # Load the CSV file into a pandas DataFrame
-df = pd.read_csv('job.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/SNgere/Allocator/main/job.csv')
 
 # Drop the 'Date' column
 df = df.drop('Date', axis=1)
