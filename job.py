@@ -151,8 +151,8 @@ ratios = ratios.sort_values(ascending=True)
 # Create a horizontal bar chart using matplotlib and display it in the Streamlit app
 fig, ax = plt.subplots()
 ratios.plot(kind='barh', ax=ax, color='tab:blue')
-ax.set_xlim([0, 10])
-ax.set_xticks(range(0, 11, 1))
+ax.set_xlim([0, 6])
+ax.set_xticks(range(0, 7, 1))
 plt.xlabel('Batches completed out of those allocated')
 
 # Add vertical lines to show where the bars are on the scale
